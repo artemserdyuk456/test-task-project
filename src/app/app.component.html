@@ -1,0 +1,117 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12  ">
+
+                <div class="input-group" >
+                    <input
+                            class="form-control"
+                            type="search"
+                            placeholder="Search artist"
+                            #search/>
+                    <span class="input-group-btn">
+                       <button
+                               class="btn btn-default"
+                               type="button"
+                               (click)="onSearchData(search.value)">
+                               <i class="fa fa-search"></i>
+                       </button>
+                    </span>
+                </div>
+
+            <div class="div-header">
+                <ul class="header">
+                    <li>Artist</li>
+                    <li class="delete-track">Track</li>
+                    <li class="delete-collection">Collection</li>
+                    <li class="delete-genre">Genre</li>
+                    <li class="li-track">Track</li>
+                </ul>
+            </div>
+
+
+                        <div class="box-search-result"
+                             *ngFor="let track of searchService.results; let i = index" >
+                            <div class="search-result" (click)="onClick(i)"  >
+
+                                <div class="first-part">
+
+                                                <div class="img-track">
+                                                    <img class="image-track" src="{{track.thumbnail}}">
+                                                </div>
+
+                                                <div class="artist-name">
+                                                    <span>{{ track.artist | shorten: 12 }}</span>
+                                                </div>
+
+                                                <div class="track">
+                                                    <span>{{ track.track | shorten: 15 }}</span>
+                                                </div>
+
+
+                                </div>
+
+                                <div class="second-part">
+
+                                    <i *ngIf="show != i || !bool" class="fa fa-plus"></i>
+                                    <i *ngIf="show == i" class="fa fa-minus"></i>
+
+                                    <div class="collection">
+                                        <span>{{ track.collection | shorten: 14 }}</span>
+                                    </div>
+
+                                    <div class="genre">
+                                        <span>{{ track.genre | shorten: 10 }}</span>
+                                    </div>
+
+                                    <div class="new-track">
+                                        <span>{{ track.track | shorten: 15 }}</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div  class="dropdown-content" *ngIf="show === i && bool" >
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6  ">
+                                            <ul class="drop-left">
+                                                <li>
+                                                    <span>{{ track.artist }} - {{ track.track | shorten: 20 }}</span>
+                                                    <i class="fa fa-headphones"></i>
+                                                </li>
+                                                <li><span>Collection: {{ track.collection}}</span></li>
+                                                <li>Track Count: {{ track.trackCount}}</li>
+                                                <li>Price: {{ track.collectionPrice}} USD</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-md-6  ">
+                                            <ul class="drop-right">
+                                                <li><span>Track Duration: {{ track.trackTimeMillis}} min</span></li>
+                                                <li><span>Track Price: {{ track.trackPrice}} USD</span></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+
+            <div class="footer"><p>Copyright © 2018</p></div>
+
+
+
+        </div>
+    </div>
+</div>
+</body>
